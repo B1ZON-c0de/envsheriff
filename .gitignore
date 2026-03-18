@@ -1,0 +1,151 @@
+# Если вы предпочитаете скрывать папку сборки
+/build/
+/bin/
+/dist/
+/out/
+
+# Зависимости (если используете vendor)
+/vendor/
+/mod/
+/pkg/
+
+# Временные файлы
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Файлы IDE
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# Тестовые покрытия
+*.coverprofile
+*.out
+*.test
+*.prof
+coverage.html
+coverage.txt
+cover.out
+profile.out
+*.cov
+
+# Логи
+*.log
+/logs/
+/tmp/
+
+# Скомпилированные бинарные файлы
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+*.bin
+
+# Директория для временных файлов тестов
+/testdata/temp/
+/testdata/*.tmp
+/testdata/*.json.tmp
+
+# Файлы конфигурации с секретами
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+*.secret.*
+config/local.*
+secrets.*
+**/secrets/
+
+# SSL сертификаты
+*.pem
+*.crt
+*.key
+*.csr
+
+# Результаты линтеров
+/golangci-lint/
+/report/
+lint.log
+
+# Отладочные файлы
+debug/
+debug.test
+__debug_bin
+cpu.prof
+mem.prof
+block.prof
+mutex.prof
+trace.out
+
+# Файлы отладки delve
+*.dSYM/
+
+# Файлы, создаваемые инструментами Go
+go.sum
+go.work
+go.work.sum
+
+# Временные файлы от редакторов
+*.orig
+*.old
+*.new
+*.bak
+
+# Директории с зависимостями (альтернатива vendor)
+/pkg/mod/
+/pkg/sumdb/
+
+
+# Файлы с секретами в коде
+**/*_secret.go
+**/*_secret_test.go
+
+# Директория для временных файлов
+/temp/
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+
+# Helm charts
+/charts/
+**/charts/*.tgz
+
+# Бэкапы баз данных
+*.sql
+*.dump
+*.backup
+
+# Файлы отладки
+*.pid
+*.seed
+*.pid.lock
+
+# Vagrant
+.vagrant/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Ansible
+*.retry
+
+# Kubernetes
+**/kubeconfig
+**/.kube/
