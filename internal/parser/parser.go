@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"errors"
 	"os"
 	"strings"
 )
@@ -8,13 +9,18 @@ import (
 const (
 	separator     = "="
 	commentPrefix = "#"
+
+	ErrReadFile = "не удалось прочитать файл"
 )
 
-func ParseEnv(file *os.File) []string {
+func ParseEnv(file *os.File) ([]string, error) {
 	var envVariables []string
 
 	// Получаем значения из .env файла
-	data, _ := os.ReadFile(file.Name())
+	data, err := os.ReadFile(file.Name())
+	if err != nil {
+		return envVariables, errors.New(ErrReadFile)
+	}
 	strData := string(data)
 
 	//Разделение по '\n'
@@ -28,7 +34,7 @@ func ParseEnv(file *os.File) []string {
 		envVariables = append(envVariables, sanitizeVariable(rawStr))
 	}
 
-	return envVariables
+	return envVariables, nil
 }
 
 // Отрезает у переменной всё после '='

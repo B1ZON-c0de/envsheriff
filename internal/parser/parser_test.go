@@ -14,7 +14,8 @@ func TestParseEnv(t *testing.T) {
 		tempEnvFile, clearTempEnvFile := createTempEnvFile(t, ".env", mockEnvData)
 		defer clearTempEnvFile()
 
-		got := parser.ParseEnv(tempEnvFile)
+		got, err := parser.ParseEnv(tempEnvFile)
+		assertNoError(t, err)
 
 		want := []string{
 			"DEBUG",
@@ -36,6 +37,13 @@ func createTempEnvFile(t *testing.T, filename string, initialData string) (*os.F
 		os.Remove(tempFile.Name())
 	}
 	return tempFile, clearFile
+}
+
+func assertNoError(t *testing.T, err error) {
+	t.Helper()
+	if err != nil {
+		t.Errorf("Не ожидаемая ошибка: %v", err)
+	}
 }
 
 func assertSlices(t *testing.T, want, got []string) {
