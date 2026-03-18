@@ -9,8 +9,7 @@ import (
 const (
 	separator     = "="
 	commentPrefix = "#"
-	space         = " "
-	tab           = "\t"
+	voidString    = ""
 
 	ErrReadFile = "не удалось прочитать файл"
 )
@@ -28,10 +27,10 @@ func ParseEnv(file *os.File) ([]string, error) {
 	//Разделение по '\n'
 	rawStrSlice := strings.Split(strData, "\n")
 
-	//Отрезаем '=' у каждой переменной порпуская ' ', '\t'  комментарии
+	//Отрезаем '=' у каждой переменной порпуская ' ', '\n', '\t'  комментарии
 	for _, rawStr := range rawStrSlice {
-		switch rawStr {
-		case space, tab:
+		switch strings.TrimSpace(rawStr) {
+		case voidString:
 			continue
 		default:
 			if strings.HasPrefix(rawStr, commentPrefix) {

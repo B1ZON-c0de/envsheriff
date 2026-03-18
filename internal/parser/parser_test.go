@@ -9,7 +9,7 @@ import (
 
 func TestParseEnv(t *testing.T) {
 	t.Run("Получение переменных из .env файла", func(t *testing.T) {
-		mockEnvData := "#комментарий\nDEBUG=true\n \n\t\nLOG_LEVEL=info"
+		mockEnvData := "#комментарий\nDEBUG=true\n\n\t\nLOG_LEVEL=info"
 
 		tempEnvFile, clearTempEnvFile := createTempEnvFile(t, ".env", mockEnvData)
 		defer clearTempEnvFile()
