@@ -7,9 +7,9 @@ import (
 )
 
 const (
-	separator     = "="
-	commentPrefix = "#"
-	voidString    = ""
+	separator     = "=" // По этот знак обрезается каждая переменная
+	commentPrefix = "#" // Знак начала комментария
+	voidString    = ""  // Пустая строка
 
 	ErrReadFile = "не удалось прочитать файл"
 )
