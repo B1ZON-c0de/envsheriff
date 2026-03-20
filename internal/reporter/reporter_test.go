@@ -3,6 +3,7 @@ package reporter_test
 import (
 	"bytes"
 	"envsheriff/internal/reporter"
+	"fmt"
 	"testing"
 )
 
@@ -17,7 +18,7 @@ func TestPrintCheckedEnv(t *testing.T) {
 
 		reporter.PrintCheckedEnv(&buf, mockAnalyzedEnv)
 
-		want := reporter.SuccessEnvMsg
+		want := fmt.Sprintf("%s%s%s", reporter.GreenColor, reporter.SuccessEnvMsg, reporter.ResetColor)
 
 		assertBuf(t, &buf, want)
 	})
@@ -32,7 +33,7 @@ func TestPrintCheckedEnv(t *testing.T) {
 
 		reporter.PrintCheckedEnv(&buf, mockAnalyzedEnv)
 
-		want := "Расхождения найдены:\n\nОтсутствуют в .env.example (добавьте их):\n- DEBUG\n"
+		want := fmt.Sprintf("%sРасхождения найдены:\n\nОтсутствуют в .env.example (добавьте их):\n%s%s- DEBUG\n%s", reporter.RedColor, reporter.ResetColor, reporter.RedColor, reporter.ResetColor)
 
 		assertBuf(t, &buf, want)
 	})

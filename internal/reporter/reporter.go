@@ -7,6 +7,10 @@ import (
 )
 
 const (
+	ResetColor = "\033[0m"
+	RedColor   = "\033[31m"
+	GreenColor = "\033[32m"
+
 	SuccessEnvMsg   = "ОК: Все переменные синхронизированы"
 	UnsuccessEnvMsg = "Расхождения найдены:\n\nОтсутствуют в .env.example (добавьте их):\n"
 )
@@ -23,7 +27,7 @@ func PrintCheckedEnv(w io.Writer, analyzedEnv map[string]bool) {
 
 	//Если всё ок то выводим сообщение об успешной проверке
 	if len(unfoundVariables) == 0 {
-		fmt.Fprint(w, SuccessEnvMsg)
+		fmt.Fprintf(w, "%s%s%s", GreenColor, SuccessEnvMsg, ResetColor)
 		return
 	}
 
@@ -35,10 +39,12 @@ func PrintCheckedEnv(w io.Writer, analyzedEnv map[string]bool) {
 
 func formatUnfoundVar(unfoundVariables []string) string {
 	var sb strings.Builder
-	sb.WriteString(UnsuccessEnvMsg)
+
+	coloredUnsuccessEnvMsg := fmt.Sprintf("%s%s%s", RedColor, UnsuccessEnvMsg, ResetColor)
+	sb.WriteString(coloredUnsuccessEnvMsg)
 
 	for _, k := range unfoundVariables {
-		sb.WriteString(fmt.Sprintf("- %s\n", k))
+		sb.WriteString(fmt.Sprintf("%s- %s\n%s", RedColor, k, ResetColor))
 	}
 
 	return sb.String()
