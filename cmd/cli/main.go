@@ -10,6 +10,11 @@ import (
 	"strings"
 )
 
+const (
+	SuccessSynchronized = "Файлы .env и .env.example успешно синхронизированы"
+	HelpMessage         = "Введите:\n -check для проверки .env файлов\n-sync для синхронизации .env и .env.example"
+)
+
 func main() {
 	args := os.Args[1:]
 	HandleCLI(args, os.Stdout)
@@ -91,8 +96,10 @@ func HandleCLI(args []string, w io.Writer) {
 
 		envExampleFile.Write([]byte(sb.String()))
 
+		fmt.Fprint(w, SuccessSynchronized)
+
 	default:
-		fmt.Fprint(w, "Введите -check для проверки .env файлов")
+		fmt.Fprint(w, HelpMessage)
 	}
 
 }
