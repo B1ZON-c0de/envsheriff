@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -57,6 +58,38 @@ func HandleCLI(args []string, w io.Writer) {
 
 		//Вывод в консоль
 		reporter.PrintCheckedEnv(w, analyzedEnv)
+	case "sync":
+		//Открываем .env файл
+		envFile, err := os.Open(".env")
+		if err != nil {
+			fmt.Errorf("не удалось найти файл .env, %w", err)
+			os.Exit(1)
+		}
+		defer envFile.Close()
+
+		//Открываем .env.example файл, уже очищенный
+		envExampleFile, err := os.OpenFile(".env.example", os.O_RDWR|os.O_TRUNC, 0644)
+		if err != nil {
+			fmt.Errorf("не удалось найти файл .env.example, %w", err)
+			os.Exit(1)
+		}
+		defer envExampleFile.Close()
+
+		envVariables, err := parser.ParseEnv(envFile)
+		if err != nil {
+			fmt.Errorf("не удалось получить перемнные из .env: %v", err)
+		}
+
+		for i, envVariable := range envVariables {
+			envVariables[i] = envVariable + "="
+		}
+
+		var sb strings.Builder
+		for _, envVariable := range envVariables {
+			sb.WriteString(fmt.Sprintln(envVariable))
+		}
+
+		envExampleFile.Write([]byte(sb.String()))
 
 	default:
 		fmt.Fprint(w, "Введите -check для проверки .env файлов")
