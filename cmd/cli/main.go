@@ -13,6 +13,7 @@ import (
 const (
 	SuccessSynchronized = "Файлы .env и .env.example успешно синхронизированы"
 	HelpMessage         = "Введите:\n -check для проверки .env файлов\n-sync для синхронизации .env и .env.example"
+	WatermarkComment    = "#Сделано с помощью 'envsheriff'\n"
 )
 
 func main() {
@@ -90,6 +91,7 @@ func HandleCLI(args []string, w io.Writer) {
 		}
 
 		var sb strings.Builder
+		sb.WriteString(WatermarkComment)
 		for _, envVariable := range envVariables {
 			sb.WriteString(fmt.Sprintln(envVariable))
 		}
